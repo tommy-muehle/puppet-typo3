@@ -1,0 +1,19 @@
+<?php
+
+// Setting the Install Tool password to the default 'joh316'
+$TYPO3_CONF_VARS['BE']['installToolPassword'] = 'bacb98acf97e0b6112b1d1b650b84971';
+
+// Setting the list of extensions to BLANK (by default there is a long list set)
+$TYPO3_CONF_VARS['EXT']['extList'] = 'install';
+$TYPO3_CONF_VARS['EXT']['requiredExt'] = 'lang';
+
+// Setting up the database username, password and host
+$typo_db_username = '<%= @db_user %>';
+$typo_db_password = '<%= @db_pass %>';
+$typo_db_host = '<%= @db_host %>';
+$typo_db = '<%= @db_name %>';
+
+## INSTALL SCRIPT EDIT POINT TOKEN - all lines after this points may be changed by the install script!
+$TYPO3_CONF_VARS['SYS']['sitename'] = '<%= @name %>';
+
+?>
