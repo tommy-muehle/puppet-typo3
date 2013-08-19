@@ -5,20 +5,36 @@
 # Standard class parameters
 #
 # [*version*]
+#   TYPO3 version for project.
+#   Example: '6.1.3'
 #
 # [*site_path*]
+#   Path to project root.
+#   Example:  '/var/www/my-project'
 #
 # [*site_user*]
+#   Project files owner.
+#   Example: 'vagrant'
 #
 # [*site_group*]
+#   Project files group.
+#   Example: 'www-data'
 #
 # [*db_pass*]
+#   Set the password for the database.
+#   Default: '' (empty)
 #
 # [*db_user*]
+#   Set the user for the database.
+#   Default: '' (empty)
 #
 # [*db_host*]
+#   Set the the database host.
+#   Default: '' (empty)
 #
 # [*db_name*]
+#   Set the database name.
+#   Default: '' (empty)
 #
 # == Author
 # Tommy Muehle
