@@ -6,5 +6,9 @@
 # Tommy Muehle
 #
 class typo3 (){
-
+	
+  if ! defined(Package['wget']) {
+    package { 'wget': ensure => 'installed' }
+  }
+	
 }
