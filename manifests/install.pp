@@ -23,8 +23,9 @@ define typo3::install (
   $source_file = "${version}.tar.gz"
 
   exec { "Get ${name}":
-      command 	=> "wget ${typo3::params::download_url}/${version} -O ${source_file}",
-      cwd 		=> $cwd
+    command 	=> "wget ${typo3::params::download_url}/${version} -O ${source_file}",
+    cwd 		=> $cwd,
+    onlyif	    => "test ! -d typo3_src-${version}"
   }
 
   exec { "Untar ${name}":
@@ -34,9 +35,10 @@ define typo3::install (
     creates 	=> "${cwd}/typo3_src-${version}"
   }
 
-  file { "${cwd}/${source_file}":
-    require 	=> Exec["Untar ${name}"],
-    ensure 		=> absent
+  exec { "Remove ${cwd}/${source_file}":
+    command 	=> "rm -f ${cwd}/${source_file}",
+    cwd 		=> $cwd,
+    require 	=> Exec["Untar ${name}"]
   }
 
 }
