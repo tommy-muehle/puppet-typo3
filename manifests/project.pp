@@ -37,9 +37,41 @@ define typo3::project (
 
 ) {
 
+  include typo3
+
   typo3::install { "${name}-${version}":
     version => $version,
     cwd	   	=> $site_path
+  }
+
+  File {
+    owner  	=> $site_user,
+    group  	=> $site_group
+  }
+
+  file { "${site_path}/typo3_src":
+    ensure  => "${site_path}/typo3_src-${version}",
+    force   => true,
+    replace => true,
+    require => Typo3::Install["${name}-${version}"]
+  }
+
+  file { "${site_path}/index.php":
+    ensure  => "${site_path}/typo3_src/index.php",
+    replace => true,
+    require => File["${site_path}/typo3_src"]
+  }
+
+  file { "${site_path}/t3lib":
+    ensure  => "${site_path}/typo3_src/t3lib",
+    replace => true,
+    require => File["${site_path}/typo3_src"]
+  }
+
+  file { "${site_path}/typo3":
+    ensure	=> "${site_path}/typo3_src/typo3",
+    replace	=> true,
+    require => File["${site_path}/typo3_src"]
   }
 
   file {[
@@ -56,8 +88,6 @@ define typo3::project (
     "${site_path}/typo3conf/ext"
   ]:
     ensure  => "directory",
-    owner   => $site_user,
-    group   => $site_group,
     mode	=> 755
   }
 
@@ -69,8 +99,7 @@ define typo3::project (
   ]:
     replace => "no",
     ensure  => "present",
-    owner   => $site_user,
-    group   => $site_group,
+    mode	=> 644,
     content => template('typo3/.htaccess.erb'),
     require => [
       File["${site_path}/fileadmin"],
@@ -78,14 +107,6 @@ define typo3::project (
       File["${site_path}/typo3conf/ext"],
       File["${site_path}/uploads"]
     ]
-  }
-
-  file { "${site_path}/typo3_src":
-    ensure 	=> "link",
-    owner  	=> $site_user,
-    group  	=> $site_group,
-    target 	=> "typo3_src-${version}",
-    require => Typo3::Install["${name}-${version}"]
   }
 
   if $version =~ /^4\./ {
