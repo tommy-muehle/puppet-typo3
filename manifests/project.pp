@@ -58,7 +58,26 @@ define typo3::project (
     ensure  => "directory",
     owner   => $site_user,
     group   => $site_group,
-    mode	=> 775
+    mode	=> 755
+  }
+
+  file {[
+    "${site_path}/fileadmin/.htaccess",
+    "${site_path}/typo3conf/.htaccess",
+    "${site_path}/typo3conf/ext/.htaccess",
+    "${site_path}/uploads/.htaccess"
+  ]:
+    replace => "no",
+    ensure  => "present",
+    owner   => $site_user,
+    group   => $site_group,
+    content => template('typo3/.htaccess.erb'),
+    require => [
+      File["${site_path}/fileadmin"],
+      File["${site_path}/typo3conf"],
+      File["${site_path}/typo3conf/ext"],
+      File["${site_path}/uploads"]
+    ]
   }
 
   file { "${site_path}/typo3_src":
@@ -81,13 +100,28 @@ define typo3::project (
 
   } elsif $version =~ /^6\./ {
 
+    File {
+      replace => "no",
+      ensure  => "present",
+      mode    => 644,
+      owner   => $site_user,
+      group   => $site_group
+    }
+
+    file { "${site_path}/typo3conf/LocalConfiguration.php":
+      content => template('typo3/LocalConfiguration.php.erb'),
+    }
+
+    file { "${site_path}/typo3conf/AdditionalConfiguration.php":
+      content => template('typo3/AdditionalConfiguration.php.erb'),
+    }
+
     file {[
       "${site_path}/fileadmin/_processed_"
     ]:
       ensure  => "directory",
-      owner   => $site_user,
-      group   => $site_group,
-      mode	=> 775
+      mode	=> 755,
+      require => File["${site_path}/fileadmin"]
     }
 
   }
