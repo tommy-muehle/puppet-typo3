@@ -1,0 +1,79 @@
+<?php
+
+return array(
+    'BE' => array(
+        'disable_exec_function' => 0,
+        'installToolPassword' => 'bacb98acf97e0b6112b1d1b650b84971',
+    ),
+    'DB' => array(
+        'database' => '<%= @db_name %>',
+        'extTablesDefinitionScript' => 'extTables.php',
+        'host' => '<%= @db_host %>',
+        'password' => '<%= @db_pass %>',
+        'username' => '<%= @db_user %>',
+    ),
+    'EXT' => array(
+        'extConf' => array(
+        ),
+        'extListArray' => array(
+            'info',
+            'perm',
+            'func',
+            'filelist',
+            'extbase',
+            'fluid',
+            'about',
+            'tsconfig_help',
+            'context_help',
+            'extra_page_cm_options',
+            'impexp',
+            'sys_note',
+            'tstemplate',
+            'tstemplate_ceditor',
+            'tstemplate_info',
+            'tstemplate_objbrowser',
+            'tstemplate_analyzer',
+            'func_wizards',
+            'wizard_crpages',
+            'wizard_sortpages',
+            'lowlevel',
+            'install',
+            'belog',
+            'beuser',
+            'aboutmodules',
+            'setup',
+            'taskcenter',
+            'info_pagetsconfig',
+            'viewpage',
+            'rtehtmlarea',
+            'css_styled_content',
+            't3skin',
+            't3editor',
+            'reports',
+            'felogin',
+            'indexed_search',
+            'recycler',
+            'version',
+        ),
+    ),
+    'EXTCONF' => array(
+        'lang' => array(
+            'availableLanguages' => array(
+                'en',
+            ),
+        ),
+    ),
+    'FE' => array(
+        'lifetime' => '3600',
+        'sessionDataLifetime' => '3600',
+    ),
+    'GFX' => array(
+        'jpg_quality' => '100',
+    ),
+    'SYS' => array(
+        'compat_version' => '<%= @version %>',
+        'sitename' => '<%= @name %>',
+    ),
+);
+
+?>
