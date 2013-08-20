@@ -140,9 +140,7 @@ define typo3::project (
     File {
       replace => "no",
       ensure  => "present",
-      mode    => 644,
-      owner   => $site_user,
-      group   => $site_group
+      mode    => 644
     }
 
     file { "${site_path}/typo3conf/LocalConfiguration.php":
