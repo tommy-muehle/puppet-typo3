@@ -4,6 +4,13 @@ This puppet module can be used to easily generate (multiple) typo3 projects.
 
 **Please feel free to give me feedback, feature-requests or new requirements**
 
+## Install
+
+Just clone the repo in your modules folder.
+
+    # /path/to/modules
+    git clone git@github.com:tommy-muehle/puppet-typo3.git typo3
+
 ## Usage
 
     typo3::project { 'my-project':
