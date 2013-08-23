@@ -107,6 +107,13 @@ define typo3::project (
     mode	=> 755
   }
 
+  file { "${site_path}/typo3conf/extTables.php":
+    replace => "no",
+    ensure  => "present",
+    content => template('typo3/extTables.php.erb'),
+    require => File["${site_path}/typo3conf"]
+  }
+
   file {[
     "${site_path}/fileadmin/.htaccess",
     "${site_path}/typo3conf/.htaccess",
