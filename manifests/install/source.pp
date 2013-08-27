@@ -1,4 +1,4 @@
-# = Class: typo3::install
+# = Class: typo3::install::source
 #
 # == Parameters
 #
@@ -15,10 +15,10 @@
 # == Author
 # Tommy Muehle
 #
-define typo3::install (
+define typo3::install::source (
 
   $version,
-  $cwd
+  $path
 
 ) {
 
@@ -28,20 +28,20 @@ define typo3::install (
 
   exec { "Get ${name}":
     command 	=> "wget ${typo3::params::download_url}/${version} -O ${source_file}",
-    cwd 		=> $cwd,
+    cwd 		=> $path,
     onlyif	    => "test ! -d typo3_src-${version}"
   }
 
   exec { "Untar ${name}":
     command 	=> "tar -xzf ${source_file}",
-    cwd 		=> $cwd,
+    cwd 		=> $path,
     require 	=> Exec["Get ${name}"],
-    creates 	=> "${cwd}/typo3_src-${version}"
+    creates 	=> "${path}/typo3_src-${version}"
   }
 
-  exec { "Remove ${cwd}/${source_file}":
-    command 	=> "rm -f ${cwd}/${source_file}",
-    cwd 		=> $cwd,
+  exec { "Remove ${path}/${source_file}":
+    command 	=> "rm -f ${path}/${source_file}",
+    cwd 		=> $path,
     require 	=> Exec["Untar ${name}"]
   }
 
