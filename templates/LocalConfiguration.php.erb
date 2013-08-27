@@ -54,6 +54,9 @@ return array(
             'indexed_search',
             'recycler',
             'version',
+            <% if extensions.is_a? Array -%>
+            <% extensions.each do |ext| %>'<%= ext['key'] %>',<% end %>
+            <% end -%>
         ),
     ),
     'EXTCONF' => array(

@@ -49,15 +49,23 @@ define typo3::project (
   $db_pass = "",
   $db_user = "",
   $db_host = "",
-  $db_name = ""
+  $db_name = "",
+
+  $extensions = []
 
 ) {
 
   include typo3
 
-  typo3::install { "${name}-${version}":
+  typo3::install::source { "${name}-${version}":
     version => $version,
-    cwd	   	=> $site_path
+    path	=> $site_path
+  }
+
+  typo3::install::extension { $extensions:
+    path    => "${site_path}/typo3conf/ext",
+    owner  	=> $site_user,
+    group  	=> $site_group
   }
 
   File {
@@ -69,7 +77,7 @@ define typo3::project (
     ensure  => "${site_path}/typo3_src-${version}",
     force   => true,
     replace => true,
-    require => Typo3::Install["${name}-${version}"]
+    require => Typo3::Install::Source["${name}-${version}"]
   }
 
   file { "${site_path}/index.php":
