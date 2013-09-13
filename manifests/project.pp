@@ -59,7 +59,8 @@ define typo3::project (
 
   typo3::install::source { "${name}-${version}":
     version => $version,
-    path	=> $site_path
+    path	=> $site_path,
+    require => File["${site_path}"]
   }
 
   typo3::install::extension { $extensions:
@@ -73,6 +74,10 @@ define typo3::project (
     group  	=> $site_group
   }
 
+  file { "${site_path}":
+    ensure  => "directory"
+  }
+  
   file { "${site_path}/typo3_src":
     ensure  => "${site_path}/typo3_src-${version}",
     force   => true,
