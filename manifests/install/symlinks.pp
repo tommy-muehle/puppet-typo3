@@ -1,4 +1,4 @@
-# = Class: typo3::install::symlinks
+# = Class: typo3::install::copy
 #
 # == Parameters
 #
@@ -18,36 +18,61 @@
 define typo3::install::symlinks (
 
   $version,
-  $path
+  $path,
+  $use_symlink = true
 
 ) {
 
   include typo3::params
 
+  $source = "${path}/typo3_src-${version}"
   $target = "${path}/typo3_src"
+    
+  if $use_symlink  == 'true' {
   
-  file { "${target}":
-    ensure  => "${path}/typo3_src-${version}",
-    force   => true,
-    replace => true
-  }
+	  file { "${target}":
+		ensure  => "${source}",
+		force   => true,
+		replace => true
+	  }
 
-  file { "${path}/index.php":
-    ensure  => "${target}/index.php",
-    replace => true,
-    require => File["${target}"]	
-  }
+	  file { "${path}/index.php":
+		ensure  => "${target}/index.php",
+		replace => true,
+		require => File["${target}"]	
+	  }
 
-  file { "${path}/t3lib":
-    ensure  => "${target}/t3lib",
-    replace => true,
-    require => File["${target}"]
-  }
+	  file { "${path}/t3lib":
+		ensure  => "${target}/t3lib",
+		replace => true,
+		require => File["${target}"]
+	  }
 
-  file { "${path}/typo3":
-    ensure	=> "${target}/typo3",
-    replace	=> true,
-    require => File["${target}"]
-  }
+	  file { "${path}/typo3":
+		ensure	=> "${target}/typo3",
+		replace	=> true,
+		require => File["${target}"]
+	  }
 
+  } else {
+  
+	  file { "${path}/index.php":
+		source  => "${source}/index.php",
+		replace => true,	
+	  }
+
+	  file { "${path}/t3lib":
+		source  => "${source}/t3lib",
+		replace => true,
+		recurse => true,
+	  }
+
+	  file { "${path}/typo3":
+		source	=> "${source}/typo3",
+		replace	=> true,
+		recurse => true,
+	  }
+    
+  }
+  
 }

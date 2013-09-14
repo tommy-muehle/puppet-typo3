@@ -51,7 +51,9 @@ define typo3::project (
   $db_host = "",
   $db_name = "",
 
-  $extensions = []
+  $extensions = [],
+
+  $use_symlink = true
 
 ) {
 
@@ -66,6 +68,7 @@ define typo3::project (
   typo3::install::symlinks { "${name}-${version}":
     version => $version,
     path	=> $site_path,
+	use_symlink => $use_symlink,
     require => Typo3::Install::Source["${name}-${version}"]
   }
 
