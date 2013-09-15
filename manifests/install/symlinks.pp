@@ -58,19 +58,19 @@ define typo3::install::symlinks (
   
 	  file { "${path}/index.php":
 		source  => "${source}/index.php",
-		replace => true,	
+		ensure => 'present'
 	  }
 
 	  file { "${path}/t3lib":
 		source  => "${source}/t3lib",
-		replace => true,
 		recurse => true,
+		ensure => 'present'
 	  }
 
 	  file { "${path}/typo3":
 		source	=> "${source}/typo3",
-		replace	=> true,
 		recurse => true,
+		ensure => 'present'
 	  }
     
   }
