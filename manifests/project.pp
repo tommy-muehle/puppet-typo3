@@ -51,7 +51,9 @@ define typo3::project (
   $db_host = "",
   $db_name = "",
 
-  $extensions = []
+  $extensions = [],
+
+  $use_symlink = true
 
 ) {
 
@@ -59,7 +61,15 @@ define typo3::project (
 
   typo3::install::source { "${name}-${version}":
     version => $version,
-    path	=> $site_path
+    path	=> $site_path,
+    require => File["${site_path}"]
+  }
+  
+  typo3::install::symlinks { "${name}-${version}":
+    version => $version,
+    path	=> $site_path,
+	use_symlink => $use_symlink,
+    require => Typo3::Install::Source["${name}-${version}"]
   }
 
   typo3::install::extension { $extensions:
@@ -73,29 +83,8 @@ define typo3::project (
     group  	=> $site_group
   }
 
-  file { "${site_path}/typo3_src":
-    ensure  => "${site_path}/typo3_src-${version}",
-    force   => true,
-    replace => true,
-    require => Typo3::Install::Source["${name}-${version}"]
-  }
-
-  file { "${site_path}/index.php":
-    ensure  => "${site_path}/typo3_src/index.php",
-    replace => true,
-    require => File["${site_path}/typo3_src"]
-  }
-
-  file { "${site_path}/t3lib":
-    ensure  => "${site_path}/typo3_src/t3lib",
-    replace => true,
-    require => File["${site_path}/typo3_src"]
-  }
-
-  file { "${site_path}/typo3":
-    ensure	=> "${site_path}/typo3_src/typo3",
-    replace	=> true,
-    require => File["${site_path}/typo3_src"]
+  file { "${site_path}":
+    ensure  => "directory"
   }
 
   file {[

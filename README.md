@@ -35,8 +35,10 @@ Just clone the repo in your modules folder.
         db_user => 'typo3'
     }
 
-### With pre-installed extensions: **(only from their git repository at the time)**  
-You can install extensions from their git-repository. Many extensions can you find [here](http://git.typo3.org).
+### With pre-installed extensions: 
+**(only from their git repository at the time)**  
+
+You can install extensions from their git-repository. Many extensions can be found [here](http://git.typo3.org).
 But you can also install your own extensions for example from github.
 
 You need therefor:
