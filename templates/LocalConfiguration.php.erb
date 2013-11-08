@@ -4,6 +4,11 @@ return array(
     'BE' => array(
         'disable_exec_function' => 0,
         'installToolPassword' => 'bacb98acf97e0b6112b1d1b650b84971',
+<% if @local_conf and @local_conf['be'] and @local_conf['be'].kind_of?(Hash) -%>
+<% @local_conf['be'].each do |key, conf| -%>
+        '<%= key -%>' => '<%= conf -%>',
+<% end -%>
+<% end -%>
     ),
     'DB' => array(
         'database' => '<%= @db_name %>',
@@ -54,8 +59,8 @@ return array(
             'indexed_search',
             'recycler',
             'version',
-            <% if extensions.is_a? Array -%>
-            <% extensions.each do |ext| %>'<%= ext['key'] %>',<% end %>
+            <% if @extensions.is_a? Array -%>
+            <% @extensions.each do |ext| %>'<%= ext['key'] %>',<% end %>
             <% end -%>
         ),
     ),
@@ -69,13 +74,28 @@ return array(
     'FE' => array(
         'lifetime' => '3600',
         'sessionDataLifetime' => '3600',
+<% if @local_conf and @local_conf['fe'] and @local_conf['fe'].kind_of?(Hash) -%>
+<% @local_conf['fe'].each do |key, conf| -%>
+        '<%= key -%>' => '<%= conf -%>',
+<% end -%>
+<% end -%>
     ),
     'GFX' => array(
         'jpg_quality' => '100',
+<% if @local_conf and @local_conf['gfx'] and @local_conf['gfx'].kind_of?(Hash) -%>
+<% @local_conf['gfx'].each do |key, conf| -%>
+        '<%= key -%>' => '<%= conf -%>',
+<% end -%>
+<% end -%>
     ),
     'SYS' => array(
         'compat_version' => '<%= @version %>',
         'sitename' => '<%= @name %>',
+<% if @local_conf and @local_conf['sys'] and @local_conf['sys'].kind_of?(Hash) -%>
+<% @local_conf['sys'].each do |key, conf| -%>
+        '<%= key -%>' => '<%= conf -%>',
+<% end -%>
+<% end -%>
     ),
 );
 
