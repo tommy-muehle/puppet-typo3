@@ -18,4 +18,27 @@ $typo_db_extTableDef_script = 'extTables.php';
 ## INSTALL SCRIPT EDIT POINT TOKEN - all lines after this points may be changed by the install script!
 $TYPO3_CONF_VARS['SYS']['sitename'] = '<%= @name %>';
 
+<% if @local_conf and @local_conf['be'] and @local_conf['be'].kind_of?(Hash) -%>
+<% @local_conf['be'].each do |key, conf| -%>
+$TYPO3_CONF_VARS['BE']['<%= key -%>'] = '<%= conf -%>';
+<% end -%>
+<% end -%>
+
+<% if @local_conf and @local_conf['fe'] and @local_conf['fe'].kind_of?(Hash) -%>
+<% @local_conf['fe'].each do |key, conf| -%>
+$TYPO3_CONF_VARS['FE']['<%= key -%>'] = '<%= conf -%>';
+<% end -%>
+<% end -%>
+
+<% if @local_conf and @local_conf['gfx'] and @local_conf['gfx'].kind_of?(Hash) -%>
+<% @local_conf['gfx'].each do |key, conf| -%>
+$TYPO3_CONF_VARS['GFX']['<%= key -%>'] = '<%= conf -%>';
+<% end -%>
+<% end -%>
+
+<% if @local_conf and @local_conf['sys'] and @local_conf['sys'].kind_of?(Hash) -%>
+<% @local_conf['sys'].each do |key, conf| -%>
+$TYPO3_CONF_VARS['SYS']['<%= key -%>'] = '<%= conf -%>';
+<% end -%>
+<% end -%>
 ?>
