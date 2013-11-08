@@ -1,4 +1,4 @@
-# = Class: typo3::install::copy
+# = Class: typo3::install::source::files
 #
 # == Parameters
 #
@@ -15,7 +15,7 @@
 # == Author
 # Felix Nagel
 #
-define typo3::install::symlinks (
+define typo3::install::source::files (
 
   $version,
   $path,

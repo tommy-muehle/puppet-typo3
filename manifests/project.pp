@@ -65,7 +65,7 @@ define typo3::project (
     require => File["${site_path}"]
   }
   
-  typo3::install::symlinks { "${name}-${version}":
+  typo3::install::source::files { "${name}-${version}":
     version => $version,
     path	=> $site_path,
 	use_symlink => $use_symlink,
