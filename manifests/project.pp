@@ -73,17 +73,20 @@ define typo3::project (
     $file_permission    = 644
   }
 
-  unless ( $typo3_src_path ) {
-    $typo3_src_path     = $site_path
+  if ( $typo3_src_path == "" or $typo3_src_path == undef ) {
+    $typo3_src     = $site_path
+  } else {
+    $typo3_src     = $typo3_src_path
   }
 
   typo3::install::source { "${name}-${version}":
     version => $version,
-    path    => $typo3_src_path,
+    path    => $typo3_src,
   }
   
   typo3::install::source::files { "${name}-${version}":
     version => $version,
+    src_path => $typo3_src,
     path	=> $site_path,
 	use_symlink => $use_symlink,
     require => Typo3::Install::Source["${name}-${version}"]
