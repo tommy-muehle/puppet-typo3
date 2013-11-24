@@ -19,10 +19,10 @@ Just clone the repo in your modules folder.
         version => '6.1.3',
         site_path => '/var/www/my-project',
         site_user => 'vagrant',
-        site_group => 'www-data'
+        site_group => 'www-data',
     }
 
-### With a prepared database-connection:
+### Example with a prepared database-connection:
 
     typo3::project { 'my-project':
         version => '6.1.3',
@@ -32,13 +32,39 @@ Just clone the repo in your modules folder.
         db_name => 'typo3_db',
         db_host => 'localhost',
         db_pass => 'secret',
-        db_user => 'typo3'
+        db_user => 'typo3',
     }
 
-### With pre-installed extensions: 
-**(only from their git repository at the time)**  
+### Example with a different directory for typo3 sources:
 
-You can install extensions from their git-repository. Many extensions can be found [here](http://git.typo3.org).
+    typo3::project { 'my-project':
+        version => '6.1.3',
+        typo3_src_path => '/var/www',
+        site_path => '/var/www/my-project',
+        site_user => 'vagrant',
+        site_group => 'www-data',
+    }
+
+### Example with own encryption key and installToolPassword in TYPO3 configuration file:
+
+    typo3::project { 'my-project':
+        version => '6.1.3',
+        site_path => '/var/www/my-project',
+        site_user => 'vagrant',
+        site_group => 'www-data',
+        local_conf => {
+            'sys' => {
+               'encryptionKey' => '47ac9add3f53f8464d33ee5785a2f25dc35e8da9fcea8bbc41eb9ced5f58574f326abcecf1924b5ab0d3229c038d7c37',
+            },
+            'be' => {
+               'installToolPassword' => 'bacb98acf97e0b6112b1d1b650b84971',
+            },
+        },
+    }
+
+
+### With pre-installed extensions: **(only from their git repository at the time)**  
+You can install extensions from their git-repository. Many extensions can you find [here](http://git.typo3.org).
 But you can also install your own extensions for example from github.
 
 You need therefor:
