@@ -145,6 +145,30 @@ For a TYPO3 6.1.3 (v6) project:
     t3lib -> typo3_src/t3lib
     typo3 -> typo3_src/typo3
 
+For a TYPO3 6.2.0beta1 (v6) project:
+
+    fileadmin/
+    fileadmin/.htaccess
+    fileadmin/_processed_/
+    fileadmin/_temp_/
+    fileadmin/user_upload/
+    typo3conf/.htaccess
+    typo3conf/LocalConfiguration.php
+    typo3conf/AdditionalConfiguration.php
+    typo3conf/extTables.php
+    typo3conf/ext/
+    typo3conf/ext/.htaccess
+    typo3conf/l10n/
+    uploads/
+    uploads/.htaccess
+    uploads/pics/
+    uploads/media/
+    uploads/tf/
+    typo3_src-6.2.0beta1/
+    typo3_src -> typo3_src-6.2.0beta1
+    index.php -> typo3_src/index.php
+    typo3 -> typo3_src/typo3
+
 ## ToDo's
 
 * Failure-Handling
