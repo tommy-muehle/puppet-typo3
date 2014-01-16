@@ -23,14 +23,14 @@ define typo3::install::extension (
 
   $key = $name["key"],
   $repo = $name["repo"],
-  $tag = $name["tag"],
+  $tag_name = $name["tag"],
   $path,
   $owner,
   $group
 
 ) {
 
-  if $tag == "" or $tag == undef {
+  if $tag_name == "" or $tag_name == undef {
     $tag_name = "master"
   }
 
