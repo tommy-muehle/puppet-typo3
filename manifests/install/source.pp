@@ -36,11 +36,11 @@ define typo3::install::source (
     command => "tar -xzf ${source_file}",
     cwd     => $src_path,
     require => Exec["Get ${name}"],
-    creates => "${path}/typo3_src-${version}"
+    creates => "${src_path}/typo3_src-${version}"
   }
 
   exec { "Remove ${path}/${source_file}":
-    command => "rm -f ${path}/${source_file}",
+    command => "rm -f ${src_path}/${source_file}",
     cwd     => $src_path,
     require => Exec["Untar ${name}"]
   }
