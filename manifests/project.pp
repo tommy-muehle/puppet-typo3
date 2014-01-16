@@ -80,16 +80,16 @@ define typo3::project (
   }
 
   typo3::install::source { "${name}-${version}":
-    version => $version,
-    path    => $typo3_src,
+    version  => $version,
+    src_path => $typo3_src,
   }
   
   typo3::install::source::files { "${name}-${version}":
-    version => $version,
-    src_path => $typo3_src,
-    path	=> $site_path,
-	use_symlink => $use_symlink,
-    require => Typo3::Install::Source["${name}-${version}"]
+    version     => $version,
+    src_path    => $typo3_src,
+    path        => $site_path,
+    use_symlink => $use_symlink,
+    require     => Typo3::Install::Source["${name}-${version}"]
   }
 
   typo3::install::extension { $extensions:
