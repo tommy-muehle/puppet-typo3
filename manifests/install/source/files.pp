@@ -27,40 +27,47 @@ define typo3::install::source::files (
 
   $version,
   $path,
+  $src_path,
   $use_symlink = true
 
 ) {
 
   include typo3::params
 
-  $source = "${path}/typo3_src-${version}"
-  $target = "${path}/typo3_src"
-    
-  if $use_symlink  == 'true' {
+  $source = "${src_path}/typo3_src-${version}"
+
+  if str2bool($use_symlink) {
   
-	  file { "${target}":
-		ensure  => "${source}",
+	  file { "${path}/typo3_src":
+		ensure  => link,
+		target  => $source,
 		force   => true,
 		replace => true
 	  }
 
 	  file { "${path}/index.php":
-		ensure  => "${target}/index.php",
+	    ensure  => link,
+		target  => "typo3_src/index.php",
 		replace => true,
-		require => File["${target}"]	
-	  }
-
-	  file { "${path}/t3lib":
-		ensure  => "${target}/t3lib",
-		replace => true,
-		require => File["${target}"]
+		require => File["${path}/typo3_src"]
 	  }
 
 	  file { "${path}/typo3":
-		ensure	=> "${target}/typo3",
-		replace	=> true,
-		require => File["${target}"]
-	  }
+        ensure  => link,
+        target	=> "typo3_src/typo3",
+        replace	=> true,
+        require => File["${path}/typo3_src"]
+      }
+
+      if $version !~ /^6\.2/ {
+
+          file { "${path}/t3lib":
+            ensure  => link,
+            replace => true,
+            target	=> "typo3_src/t3lib",
+            require => File["${path}/typo3_src"]
+          }
+      }
 
   } else {
   
@@ -69,18 +76,19 @@ define typo3::install::source::files (
 		ensure => 'present'
 	  }
 
-	  file { "${path}/t3lib":
-		source  => "${source}/t3lib",
-		recurse => true,
-		ensure => 'present'
-	  }
-
 	  file { "${path}/typo3":
-		source	=> "${source}/typo3",
-		recurse => true,
-		ensure => 'present'
+        source	=> "${source}/typo3",
+        recurse => true,
+        ensure => 'present'
+      }
+
+      if $version !~ /^6\.2/ {
+
+          file { "${path}/t3lib":
+            source  => "${source}/t3lib",
+            recurse => true,
+            ensure => 'present'
+          }
 	  }
-    
   }
-  
 }
