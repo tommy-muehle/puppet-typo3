@@ -93,6 +93,15 @@ Here is an example to install realurl in version 1.12.6 and the latest version o
         ]
     }
 
+### A note to windows user
+You can set "use_symlink" to false to copy source files to project directory instead of symlink it.
+Because symlinks cannot be managed on Windows systems. (see also puppet documentation)
+
+    typo3::project { 'my-project':
+        version     => '6.1.3',
+        use_symlink => false,
+        ...
+
 ## Result
 
 The module generates an easy updatable folder-structure on the basis of the TYPO3 version.
