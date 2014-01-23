@@ -178,6 +178,9 @@ For a TYPO3 6.2.0beta1 (v6) project:
     index.php -> typo3_src/index.php
     typo3 -> typo3_src/typo3
 
+## Testing
+To test the module you can use the related [testbox](https://github.com/tommy-muehle/puppet-typo3-testbox)
+
 ## ToDo's
 
 * Failure-Handling
