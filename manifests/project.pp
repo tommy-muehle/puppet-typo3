@@ -86,22 +86,22 @@ define typo3::project (
   }
 
   if ( $typo3_src_path == "" or $typo3_src_path == undef ) {
-    $typo3_src     = $site_path
+    $typo3_src = $site_path
   } else {
-    $typo3_src     = $typo3_src_path
+    $typo3_src = $typo3_src_path
   }
 
   typo3::install::source { "${name}-${version}":
     version => $version,
     path    => $typo3_src,
   }
-  
+
   typo3::install::source::files { "${name}-${version}":
-    version => $version,
-    src_path => $typo3_src,
-    path	=> $site_path,
+    version     => $version,
+    path	    => $site_path,
+    src_path    => $typo3_src,
 	use_symlink => $use_symlink,
-    require => Typo3::Install::Source["${name}-${version}"]
+    require     => Typo3::Install::Source["${name}-${version}"]
   }
 
   typo3::install::extension { $extensions:
