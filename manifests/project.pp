@@ -68,7 +68,7 @@ define typo3::project (
   $db_host = "",
   $db_name = "",
 
-  $local_conf = [],
+  $local_conf = {},
   $extensions = [],
 
   $use_symlink = true
