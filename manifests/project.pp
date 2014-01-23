@@ -115,37 +115,6 @@ define typo3::project (
     group   => $site_group
   }
 
-  file { "${site_path}/typo3_src":
-    ensure  => 'link',
-    target  => "${typo3_src_path}/typo3_src-${version}",
-    force   => true,
-    replace => true,
-    require => Typo3::Install::Source["${name}-${version}"]
-  }
-
-  exec { "ln -s typo3_src/index.php index.php":
-    command => 'ln -s typo3_src/index.php index.php',
-    cwd     => $site_path,
-    require => File["${site_path}/typo3_src"],
-    unless  => 'test -L index.php',
-  }
-
-  unless $version =~ /^6\.2/ {
-    exec { "ln -s typo3_src/t3lib t3lib":
-      command   => 'ln -s typo3_src/t3lib t3lib',
-      cwd       => $site_path,
-      require   => File["${site_path}/typo3_src"],
-      unless    => 'test -L t3lib',
-    }
-  }
-
-  exec { "ln -s typo3_src/typo3 typo3":
-    command => 'ln -s typo3_src/typo3 typo3',
-    cwd     => $site_path,
-    require => File["${site_path}/typo3_src"],
-    unless  => 'test -L typo3',
-  }
-
   file {[
     "${site_path}/typo3temp",
     "${site_path}/fileadmin",
