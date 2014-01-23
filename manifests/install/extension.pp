@@ -16,6 +16,18 @@
 #   The git tag
 #   Example: '1_12_6'
 #
+# [*path*]
+#   Path to install extension.
+#   Example: '/var/www/extensions'
+#
+# [*owner*]
+#   Files owner.
+#   Example: 'vagrant'
+#
+# [*group*]
+#   Files group.
+#   Example: 'www-data'
+#
 # == Author
 # Tommy Muehle
 #

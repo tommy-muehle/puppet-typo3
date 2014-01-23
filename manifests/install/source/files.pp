@@ -8,9 +8,17 @@
 #   TYPO3 version for project.
 #   Example: '6.1.3'
 #
-# [*cwd*]
+# [*path*]
 #   Path to project root.
 #   Example: '/var/www/my-project'
+#
+# [*src_path*]
+#   Path to TYPO3 sources.
+#   Example: '/var/www'
+#
+# [*use_symlink*]
+#   Set a symlink to TYPO3 source. Set to false to copy sources.
+#   Default: true
 #
 # == Author
 # Felix Nagel

@@ -40,6 +40,18 @@
 #   Set the database name.
 #   Default: '' (empty)
 #
+# [*local_conf*]
+#   Set some parameters for pre-set in LocalConfiguration file.
+#   Default: (empty hash)
+#
+# [*extensions*]
+#   Set some extensions and parameters for pre-install.
+#   Default: (empty array)
+#
+# [*use_symlink*]
+#   Set a symlink to TYPO3 source. Set to false to copy sources.
+#   Default: true
+#
 # == Author
 # Tommy Muehle
 #

@@ -8,9 +8,9 @@
 #   TYPO3 version for project.
 #   Example: '6.1.3'
 #
-# [*cwd*]
-#   Path to project root.
-#   Example: '/var/www/my-project'
+# [*path*]
+#   Path to source directory.
+#   Example: '/var/www/typo3'
 #
 # == Author
 # Tommy Muehle
