@@ -6,7 +6,7 @@ rvm:
   - 2.0.0
 gemfile: .gemfile
 script:
-  - "rake spec_standalone SPEC_OPTS='--format documentation'"
+  - "rake spec_prep && rake spec_standalone SPEC_OPTS='--format documentation'"
 env:
   matrix:
     - PUPPET_GEM_VERSION="~> 3.3"
