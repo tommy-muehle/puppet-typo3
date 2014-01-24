@@ -9,4 +9,4 @@ script:
   - "rake spec_standalone SPEC_OPTS='--format documentation'"
 env:
   matrix:
-    - PUPPET_GEM_VERSION="~> 3.0"
+    - PUPPET_GEM_VERSION="~> 3.3"
