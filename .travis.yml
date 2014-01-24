@@ -4,4 +4,4 @@ branches:
 language: ruby
 gemfile: .gemfile
 script:
-  - "rake spec SPEC_OPTS='--format documentation'"
+  - "rake spec_standalone SPEC_OPTS='--format documentation'"
