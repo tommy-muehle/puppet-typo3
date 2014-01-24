@@ -1,5 +1,5 @@
 # Puppet module: typo3
-
+[![Build Status](https://travis-ci.org/tommy-muehle/puppet-typo3.png?branch=master)](https://travis-ci.org/tommy-muehle/puppet-typo3)
 This puppet module can be used to easily generate (multiple) typo3 projects.
 
 **Please feel free to give me feedback, feature-requests or new requirements**
