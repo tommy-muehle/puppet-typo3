@@ -1,0 +1,6 @@
+branches:
+  only:
+  - master
+language: ruby
+script:
+  - "rake spec SPEC_OPTS='--format documentation'"
