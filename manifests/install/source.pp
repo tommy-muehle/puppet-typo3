@@ -29,20 +29,21 @@ define typo3::install::source (
   exec { "Get ${name}":
     command => "wget ${typo3::params::download_url}/${version} -O ${source_file}",
     cwd     => $src_path,
-    onlyif  => "test ! -d typo3_src-${version}"
+    onlyif  => "test ! -d typo3_src-${version}",
   }
 
   exec { "Untar ${name}":
     command => "tar -xzf ${source_file}",
     cwd     => $src_path,
     require => Exec["Get ${name}"],
-    creates => "${src_path}/typo3_src-${version}"
+    creates => "${src_path}/typo3_src-${version}",
   }
 
   exec { "Remove ${path}/${source_file}":
     command => "rm -f ${src_path}/${source_file}",
     cwd     => $src_path,
-    require => Exec["Untar ${name}"]
+    require => Exec["Untar ${name}"],
+    onlyif  => "test ! -f ${src_path}/${source_file}",
   }
 
 }
