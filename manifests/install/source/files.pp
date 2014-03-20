@@ -38,14 +38,14 @@ define typo3::install::source::files (
       replace => true
     }
 
-    exec { "ln -s typo3_src/index.php index.php":
+    exec { "${site_path}: ln -s typo3_src/index.php index.php":
       command => 'ln -s typo3_src/index.php index.php',
       cwd     => $site_path,
       require => File["${target}"],
       unless  => 'test -L index.php',
     }
 
-    exec { "ln -s typo3_src/typo3 typo3":
+    exec { "${site_path}: ln -s typo3_src/typo3 typo3":
       command => 'ln -s typo3_src/typo3 typo3',
       cwd     => $site_path,
       require => File["${target}"],
@@ -53,7 +53,7 @@ define typo3::install::source::files (
     }
 
     unless $version =~ /^6\.2/ {
-      exec { "ln -s typo3_src/t3lib t3lib":
+      exec { "${site_path}: ln -s typo3_src/t3lib t3lib":
         command => 'ln -s typo3_src/t3lib t3lib',
         cwd     => $site_path,
         require => File["${target}"],
