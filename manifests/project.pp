@@ -71,7 +71,8 @@ define typo3::project (
   $local_conf = {},
   $extensions = [],
 
-  $use_symlink = true
+  $use_symlink = true,
+  $enable_install_tool = false
 
 ) {
 
@@ -92,15 +93,15 @@ define typo3::project (
   }
 
   typo3::install::source { "${name}-${version}":
-    version => $version,
-    path    => $typo3_src,
+    version  => $version,
+    src_path => $typo3_src,
   }
 
   typo3::install::source::files { "${name}-${version}":
     version     => $version,
-    path	    => $site_path,
     src_path    => $typo3_src,
-	use_symlink => $use_symlink,
+    site_path   => $site_path,
+    use_symlink => $use_symlink,
     require     => Typo3::Install::Source["${name}-${version}"]
   }
 
@@ -155,6 +156,24 @@ define typo3::project (
       File["${site_path}/typo3conf/ext"],
       File["${site_path}/uploads"]
     ]
+  }
+
+  if $enable_install_tool == true {
+
+    file { "${site_path}/typo3conf/ENABLE_INSTALL_TOOL":
+      replace => "no",
+      ensure  => "present",
+      mode    => $file_permission,
+      content => '',
+      require => File["${site_path}/typo3conf"],
+    }
+
+  } else {
+
+    tidy { "${site_path}/typo3conf/ENABLE_INSTALL_TOOL":
+      age => "1h"
+    }
+
   }
 
   if $version =~ /^4\./ {

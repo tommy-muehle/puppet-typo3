@@ -28,6 +28,7 @@ define typo3::install::source::files (
   $version,
   $path,
   $src_path,
+  $site_path,
   $use_symlink = true
 
 ) {
@@ -35,60 +36,61 @@ define typo3::install::source::files (
   include typo3::params
 
   $source = "${src_path}/typo3_src-${version}"
+  $target = "${site_path}/typo3_src"
 
   if str2bool($use_symlink) {
-  
-	  file { "${path}/typo3_src":
-		ensure  => link,
-		target  => $source,
-		force   => true,
-		replace => true
-	  }
 
-	  file { "${path}/index.php":
-	    ensure  => link,
-		target  => "typo3_src/index.php",
-		replace => true,
-		require => File["${path}/typo3_src"]
-	  }
+    file { "${target}":
+      ensure  => link,
+      target  => "${source}",
+      force   => true,
+      replace => true
+    }
 
-	  file { "${path}/typo3":
-        ensure  => link,
-        target	=> "typo3_src/typo3",
-        replace	=> true,
-        require => File["${path}/typo3_src"]
+    exec { "${site_path}: ln -s typo3_src/index.php index.php":
+      command => 'ln -s typo3_src/index.php index.php',
+      cwd     => $site_path,
+      require => File["${target}"],
+      unless  => 'test -L index.php',
+    }
+
+    exec { "${site_path}: ln -s typo3_src/typo3 typo3":
+      command => 'ln -s typo3_src/typo3 typo3',
+      cwd     => $site_path,
+      require => File["${target}"],
+      unless  => 'test -d typo3',
+    }
+
+    unless $version =~ /^6\.2/ {
+      exec { "${site_path}: ln -s typo3_src/t3lib t3lib":
+        command => 'ln -s typo3_src/t3lib t3lib',
+        cwd     => $site_path,
+        require => File["${target}"],
+        unless  => 'test -d t3lib',
       }
-
-      if $version !~ /^6\.2/ {
-
-          file { "${path}/t3lib":
-            ensure  => link,
-            replace => true,
-            target	=> "typo3_src/t3lib",
-            require => File["${path}/typo3_src"]
-          }
-      }
+    }
 
   } else {
   
-	  file { "${path}/index.php":
-		source  => "${source}/index.php",
-		ensure => 'present'
-	  }
+    file { "${site_path}/index.php":
+      source => "${source}/index.php",
+      ensure => 'present'
+    }
 
-	  file { "${path}/typo3":
-        source	=> "${source}/typo3",
+    file { "${site_path}/typo3":
+      source  => "${source}/typo3",
+      recurse => true,
+      ensure  => 'present'
+    }
+
+    unless $version =~ /^6\.2/ {
+      file { "${site_path}/t3lib":
+        source  => "${source}/t3lib",
         recurse => true,
-        ensure => 'present'
+        ensure  => 'present'
       }
+    }
 
-      if $version !~ /^6\.2/ {
-
-          file { "${path}/t3lib":
-            source  => "${source}/t3lib",
-            recurse => true,
-            ensure => 'present'
-          }
-	  }
   }
+
 }
