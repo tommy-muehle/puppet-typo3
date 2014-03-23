@@ -43,7 +43,7 @@ define typo3::install::extension (
 ) {
 
   if $tag_name == "" or $tag_name == undef {
-    $tag_name = "master"
+     $tag_name = "master"
   }
 
   exec {"git-clone ${key}":

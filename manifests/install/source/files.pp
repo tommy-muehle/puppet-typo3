@@ -8,7 +8,7 @@
 #   TYPO3 version for project.
 #   Example: '6.1.3'
 #
-# [*path*]
+# [*site_path*]
 #   Path to project root.
 #   Example: '/var/www/my-project'
 #
@@ -26,7 +26,6 @@
 define typo3::install::source::files (
 
   $version,
-  $path,
   $src_path,
   $site_path,
   $use_symlink = true

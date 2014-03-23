@@ -52,6 +52,10 @@
 #   Set a symlink to TYPO3 source. Set to false to copy sources.
 #   Default: true
 #
+# [*enable_install_tool*]
+#   Enables the TYPO3 install tool for one hour.
+#   Default: false
+#
 # == Author
 # Tommy Muehle
 #

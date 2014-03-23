@@ -8,7 +8,7 @@
 #   TYPO3 version for project.
 #   Example: '6.1.3'
 #
-# [*path*]
+# [*src_path*]
 #   Path to source directory.
 #   Example: '/var/www/typo3'
 #
