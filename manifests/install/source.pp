@@ -39,7 +39,7 @@ define typo3::install::source (
     creates => "${src_path}/typo3_src-${version}",
   }
 
-  exec { "Remove ${path}/${source_file}":
+  exec { "Remove ${name}":
     command => "rm -f ${src_path}/${source_file}",
     cwd     => $src_path,
     require => Exec["Untar ${name}"],
