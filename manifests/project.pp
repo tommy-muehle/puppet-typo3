@@ -144,24 +144,6 @@ define typo3::project (
     require => File["${site_path}/typo3conf"]
   }
 
-  file {[
-    "${site_path}/fileadmin/.htaccess",
-    "${site_path}/typo3conf/.htaccess",
-    "${site_path}/typo3conf/ext/.htaccess",
-    "${site_path}/uploads/.htaccess"
-  ]:
-    replace => "no",
-    ensure  => "present",
-    mode    => $file_permission,
-    content => template('typo3/.htaccess.erb'),
-    require => [
-      File["${site_path}/fileadmin"],
-      File["${site_path}/typo3conf"],
-      File["${site_path}/typo3conf/ext"],
-      File["${site_path}/uploads"]
-    ]
-  }
-
   if $enable_install_tool == true {
 
     file { "${site_path}/typo3conf/ENABLE_INSTALL_TOOL":
