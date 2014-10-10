@@ -116,7 +116,7 @@ define typo3::project (
   }
 
   File {
-    owner   => $site_user,
+    owner   => $site_yuser,
     group   => $site_group
   }
 
@@ -188,6 +188,10 @@ define typo3::project (
       content   => template('typo3/AdditionalConfiguration.php.erb'),
     }
 
+	file { "${site_path}/typo3conf/PackageStates.php":
+		ensure    => "file",
+	}
+
     file {[
       "${site_path}/fileadmin/_processed_"
     ]:
@@ -195,7 +199,6 @@ define typo3::project (
       mode      => $dir_permission,
       require   => File["${site_path}/fileadmin"]
     }
-
     if $version =~ /^6\.2/ {
       file { "${site_path}/typo3conf/PackageStates.php":
         ensure    => "file",
