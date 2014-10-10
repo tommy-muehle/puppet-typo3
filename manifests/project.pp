@@ -83,8 +83,8 @@ define typo3::project (
   include typo3
 
   if ( $site_user != $site_group ) {
-    $dir_permission     = 2770
-    $file_permission    = 660
+    $dir_permission     = 2777
+    $file_permission    = 666
   } else {
     $dir_permission     = 2755
     $file_permission    = 644
@@ -196,5 +196,10 @@ define typo3::project (
       require   => File["${site_path}/fileadmin"]
     }
 
+    if $version =~ /^6\.2/ {
+      file { "${site_path}/typo3conf/PackageStates.php":
+        ensure    => "file",
+      }
+    }
   }
 }
