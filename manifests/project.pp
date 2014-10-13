@@ -116,7 +116,7 @@ define typo3::project (
   }
 
   File {
-    owner   => $site_yuser,
+    owner   => $site_user,
     group   => $site_group
   }
 
