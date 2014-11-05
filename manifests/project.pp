@@ -196,5 +196,10 @@ define typo3::project (
       require   => File["${site_path}/fileadmin"]
     }
 
+    if $version =~ /^6\.2/ {
+      file { "${site_path}/typo3conf/PackageStates.php":
+        ensure    => "file",
+      }
+    }
   }
 }
