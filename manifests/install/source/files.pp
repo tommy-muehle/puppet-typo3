@@ -60,7 +60,7 @@ define typo3::install::source::files (
       unless  => 'test -d typo3',
     }
 
-    unless $version =~ /^6\.2/ {
+    unless $version > "6.1.99" {
       exec { "${site_path}: ln -s typo3_src/t3lib t3lib":
         command => 'ln -s typo3_src/t3lib t3lib',
         cwd     => $site_path,
