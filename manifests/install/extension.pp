@@ -52,20 +52,23 @@ define typo3::install::extension (
     cwd         => $path,
     onlyif      => "test ! -d ${path}/${key}",
     require     => Package[$typo3::packages],
+    path        => ['/bin/'],
   }
 
   exec {"git-checkout ${key} ${version}":
     command     => "git checkout ${tag_name}",
     cwd         => "${path}/${key}",
     notify      => Exec["chown ${key}"],
-    require     => Exec["git-clone ${key}"]
+    require     => Exec["git-clone ${key}"],
+    path        => ['/bin/'],
   }
 
   exec {"chown ${key}":
     command     => "chown -R ${owner}:${group} ${path}/${key}",
     refreshonly => true,
     cwd         => $path,
-    require     => Exec["git-clone ${key}"]
+    require     => Exec["git-clone ${key}"],
+    path        => ['/bin/'],
   }
 
 }
