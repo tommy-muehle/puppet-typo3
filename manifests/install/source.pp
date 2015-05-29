@@ -45,7 +45,7 @@ define typo3::install::source (
     command => "rm -f ${src_path}/${source_file}",
     cwd     => $src_path,
     require => Exec["Untar ${name}"],
-    onlyif  => "test ! -f ${src_path}/${source_file}",
+    onlyif  => "test -f ${src_path}/${source_file}",
     path    => ['/bin/'],
   }
 
