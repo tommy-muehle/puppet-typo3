@@ -51,6 +51,7 @@ define typo3::install::source::files (
       cwd     => $site_path,
       require => File["${target}"],
       unless  => 'test -L index.php',
+      path    => ['/bin/'],
     }
 
     exec { "${site_path}: ln -s typo3_src/typo3 typo3":
@@ -58,19 +59,21 @@ define typo3::install::source::files (
       cwd     => $site_path,
       require => File["${target}"],
       unless  => 'test -d typo3',
+      path    => ['/bin/'],
     }
 
-    unless $version > "6.1.99" {
+    if versioncmp($version, "6.1.99") < 0 {
       exec { "${site_path}: ln -s typo3_src/t3lib t3lib":
         command => 'ln -s typo3_src/t3lib t3lib',
         cwd     => $site_path,
         require => File["${target}"],
         unless  => 'test -d t3lib',
+        path    => ['/bin/'],
       }
     }
 
   } else {
-  
+
     file { "${site_path}/index.php":
       source => "${source}/index.php",
       ensure => 'present'
@@ -82,7 +85,7 @@ define typo3::install::source::files (
       ensure  => 'present'
     }
 
-    unless $version =~ /^6\.2/ {
+    if versioncmp($version, "6.1.99") < 0 {
       file { "${site_path}/t3lib":
         source  => "${source}/t3lib",
         recurse => true,

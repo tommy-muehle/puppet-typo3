@@ -30,6 +30,7 @@ define typo3::install::source (
     command => "wget ${typo3::params::download_url}/${version} -O ${source_file}",
     cwd     => $src_path,
     onlyif  => "test ! -d typo3_src-${version}",
+    path    => ['/bin/'],
   }
 
   exec { "Untar ${name}":
@@ -37,13 +38,15 @@ define typo3::install::source (
     cwd     => $src_path,
     require => Exec["Get ${name}"],
     creates => "${src_path}/typo3_src-${version}",
+    path    => ['/bin/'],
   }
 
   exec { "Remove ${name}":
     command => "rm -f ${src_path}/${source_file}",
     cwd     => $src_path,
     require => Exec["Untar ${name}"],
-    onlyif  => "test ! -f ${src_path}/${source_file}",
+    onlyif  => "test -f ${src_path}/${source_file}",
+    path    => ['/bin/'],
   }
 
 }
